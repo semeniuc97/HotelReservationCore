@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NLog;
 using Swashbuckle.AspNetCore.Swagger;
+using WebApi.Extensions;
 
 namespace WebApi
 {
@@ -41,7 +41,7 @@ namespace WebApi
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookedDatesService, BookedDatesService>();
             services.AddTransient<IValidationService, ValidationService>();
-
+           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -50,7 +50,7 @@ namespace WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*,ILogger logger*/)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +61,9 @@ namespace WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            //app.ConfigureExceptionHandler(logger);
+
             app.UseMvc();
         }
     }

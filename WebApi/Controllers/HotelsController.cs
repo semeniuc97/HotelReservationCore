@@ -21,7 +21,7 @@ namespace WebApi.Controllers
     {
         private IHotelService _hotelService;
         private readonly ILogger<HotelsController> _logger;
-
+        
         public HotelsController(IHotelService hotelService, ILogger<HotelsController> logger)
         {
             _hotelService = hotelService;

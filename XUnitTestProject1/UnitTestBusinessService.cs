@@ -85,9 +85,17 @@ namespace BusinessServiceXUnitTests
         [Fact]
         public void Test_BookingDatesRange()
         {
-            var result = bookedDatesService.GetBookingDatesRange(new DateTime(2019, 1, 3), new DateTime(2019, 1, 6)).Count;
+            var result = bookedDatesService.GetBookingDatesRange(new DateTime(2019, 1, 3), new DateTime(2019, 1, 6));
 
-            Assert.Equal(4, result);
+            var expected = new List<DateTime>()
+            {
+                new DateTime(2019,1,3),
+                new DateTime(2019,1,6),
+                new DateTime(2019,1,4),
+                new DateTime(2019,1,5)
+            };
+
+            Assert.Equal(expected, result);
         }
 
         [Fact]
@@ -99,11 +107,7 @@ namespace BusinessServiceXUnitTests
                 new DateTime(2019,1,9),
                 new DateTime(2019,1,10)
             };
-            mockbookedDatesService.Setup(x => x.CheckIsBookedDates(new DateTime(2019, 1, 3), new DateTime(2019, 1, 7), bookedDates)).Returns(true);
-
-            var result = mockbookedDatesService
-                .Object
-                .CheckIsBookedDates(new DateTime(2019, 1, 3), new DateTime(2019, 1, 7), bookedDates);
+            var result = bookedDatesService.CheckIsBookedDates(new DateTime(2019, 1, 3), new DateTime(2019, 1, 7), bookedDates);
 
             Assert.True(result);
 

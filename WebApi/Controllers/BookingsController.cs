@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using BusinessAccessLayer.Services;
 using BusinessAccessLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
+using NLog;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +19,13 @@ namespace WebApi.Controllers
     {
         private IBookingService _bookingService;
         private IBookedDatesService _bookedDatesService;
-        public BookingsController(IBookingService bookingService, IBookedDatesService bookedDatesService)
+        ILogger<BookingsController> _log;
+        public BookingsController(IBookingService bookingService, IBookedDatesService bookedDatesService, ILogger<BookingsController> log)
         {
             _bookingService = bookingService;
             _bookedDatesService = bookedDatesService;
+            _log = log;
+           
         }
 
         [HttpPost]
@@ -43,19 +49,48 @@ namespace WebApi.Controllers
         [HttpGet("{startDate}/{endDate}")]
         public ActionResult<IEnumerable<RoomBookings>> GetRoomBookingsRating(DateTime startDate, DateTime endDate)
         {
-            var bookings = _bookingService.GetRoomReservationsByDatesRange(startDate, endDate);
-            return _bookingService.GetRoomBookingsRating(bookings);
+            var logger = LogManager.GetCurrentClassLogger();
+            var roomsRating = new List<RoomBookings>();
+
+            try
+            {
+                var bookings = _bookingService.GetRoomReservationsByDatesRange(startDate, endDate);
+                roomsRating = _bookingService.GetRoomBookingsRating(bookings);
+                //_log.LogInformation($"The rating has been generated.Total rating`s count {roomsRating.Count}");
+                logger.Info($"The rating has been generated.Total rating`s count {roomsRating.Count}");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex,"Oops!I did it agian.");
+            }
+            return roomsRating;
+
         }
 
         [HttpGet("{roomId}")]
         public ActionResult<IEnumerable<DateTime>> GetBookedDays(int roomId)
         {
-            var bookings = _bookingService.GetAllByRoomId(roomId);
-            return _bookedDatesService.GetAllBookedDays(bookings);
+            var logger = LogManager.GetCurrentClassLogger();
+            var bookedDates = new List<DateTime>();
+
+            try
+            {
+                var bookings = _bookingService.GetAllByRoomId(roomId);
+                bookedDates = _bookedDatesService.GetAllBookedDays(bookings);
+                //_log.LogInformation($"{bookedDates.Count} new bookings have been added succesfully!");
+                logger.Info($"{bookedDates.Count} new bookings have been added succesfully!");
+                return bookedDates;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Oops,I did it again!");
+            }
+
+            return bookedDates;
         }
 
 
-        
+
 
 
     }
