@@ -10,6 +10,7 @@ using Models;
 using NLog;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
  
 
 namespace WebApi.Controllers
@@ -31,9 +32,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Hotel>> Get()
         {
-
-
-
+            _logger.LogInformation("Something");
             return _hotelService.GetAll();
         }
 
