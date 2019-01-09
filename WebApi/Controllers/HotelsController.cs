@@ -10,8 +10,7 @@ using Models;
 using NLog;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
- 
+
 
 namespace WebApi.Controllers
 {
@@ -20,19 +19,18 @@ namespace WebApi.Controllers
     public class HotelsController : ControllerBase
     {
         private IHotelService _hotelService;
-        private readonly ILogger<HotelsController> _logger;
-        
-        public HotelsController(IHotelService hotelService, ILogger<HotelsController> logger)
+        private readonly ILoggerManager _logger;
+
+        public HotelsController(IHotelService hotelService, ILoggerManager logger)
         {
             _hotelService = hotelService;
-            _logger=logger;
+            _logger = logger;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Hotel>> Get()
         {
-            _logger.LogInformation("Something");
             return _hotelService.GetAll();
         }
 
@@ -54,7 +52,7 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public Hotel Put(int id, [FromBody] Hotel hotel)
         {
-           return  _hotelService.Update(id,hotel);
+            return _hotelService.Update(id, hotel);
         }
 
         // DELETE api/values/5

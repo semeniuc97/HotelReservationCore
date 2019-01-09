@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccessLayer.Services;
 using BusinessAccessLayer.Services.Interfaces;
+using BusinessAccessLayer.Services.LoggerService;
 using DataAccessLayer.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +42,10 @@ namespace WebApi
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookedDatesService, BookedDatesService>();
             services.AddTransient<IValidationService, ValidationService>();
-           
+            services.AddTransient<ILoggerManager, LoggerManager>();
+            
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -50,7 +54,7 @@ namespace WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env/*,ILogger logger*/)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -62,7 +66,7 @@ namespace WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            //app.ConfigureExceptionHandler(logger);
+            app.ConfigureExceptionHandler(logger);
 
             app.UseMvc();
         }

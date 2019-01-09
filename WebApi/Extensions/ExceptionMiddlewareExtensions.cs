@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Models;
 using NLog;
+using BusinessAccessLayer.Services.Interfaces;
 
 namespace WebApi.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app,  ILogger logger)
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app,  ILoggerManager logger)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -25,7 +26,7 @@ namespace WebApi.Extensions
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.Error($"Something went wrong: {contextFeature.Error}");
+                        logger.LogError($"Something went wrong: {contextFeature.Error}");
 
                         await context.Response.WriteAsync(new ErrorDetails()
                         {

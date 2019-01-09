@@ -19,13 +19,15 @@ namespace WebApi.Controllers
     {
         private IBookingService _bookingService;
         private IBookedDatesService _bookedDatesService;
-        ILogger<BookingsController> _log;
-        public BookingsController(IBookingService bookingService, IBookedDatesService bookedDatesService, ILogger<BookingsController> log)
+        ILoggerManager _log;
+        ILogger<BookingsController> _logger;
+        public BookingsController(IBookingService bookingService, IBookedDatesService bookedDatesService,
+            ILoggerManager log, ILogger<BookingsController> logger)
         {
             _bookingService = bookingService;
             _bookedDatesService = bookedDatesService;
             _log = log;
-           
+            _logger = logger;
         }
 
         [HttpPost]
@@ -49,49 +51,40 @@ namespace WebApi.Controllers
         [HttpGet("{startDate}/{endDate}")]
         public ActionResult<IEnumerable<RoomBookings>> GetRoomBookingsRating(DateTime startDate, DateTime endDate)
         {
-            var logger = LogManager.GetCurrentClassLogger();
             var roomsRating = new List<RoomBookings>();
 
             try
             {
                 var bookings = _bookingService.GetRoomReservationsByDatesRange(startDate, endDate);
                 roomsRating = _bookingService.GetRoomBookingsRating(bookings);
-                //_log.LogInformation($"The rating has been generated.Total rating`s count {roomsRating.Count}");
-                logger.Info($"The rating has been generated.Total rating`s count {roomsRating.Count}");
+                //_logger.LogInformation($"The rating has been generated.Total rating`s count {roomsRating.Count}");
+                _log.LogInfo($"The rating has been generated.Total rating`s count {roomsRating.Count}");
+                return roomsRating;
             }
             catch (Exception ex)
             {
-                logger.Error(ex,"Oops!I did it agian.");
+                throw new Exception("Exception while fetching all the bookigns from the storage.");
             }
-            return roomsRating;
-
         }
 
         [HttpGet("{roomId}")]
         public ActionResult<IEnumerable<DateTime>> GetBookedDays(int roomId)
         {
-            var logger = LogManager.GetCurrentClassLogger();
             var bookedDates = new List<DateTime>();
-
             try
             {
                 var bookings = _bookingService.GetAllByRoomId(roomId);
                 bookedDates = _bookedDatesService.GetAllBookedDays(bookings);
-                //_log.LogInformation($"{bookedDates.Count} new bookings have been added succesfully!");
-                logger.Info($"{bookedDates.Count} new bookings have been added succesfully!");
+                //_logger.LogInformation($"{bookedDates.Count} new bookings have been added succesfully!");
+                _log.LogInfo($"{bookedDates.Count} new bookings have been added succesfully!");
                 return bookedDates;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                logger.Error(ex, "Oops,I did it again!");
+                throw new Exception("Exception while fetching all the bookigns from the storage.");
             }
-
-            return bookedDates;
+            //return bookedDates;
         }
-
-
-
-
 
     }
 }
