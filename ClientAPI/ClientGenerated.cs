@@ -4,9 +4,8 @@
 // </auto-generated>
 //----------------------
 
-using ;
-using ;
 using ClientApi;
+using Models;
 using Newtonsoft;
 namespace ClientApi
 {

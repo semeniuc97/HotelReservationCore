@@ -12,7 +12,7 @@ using NLog.Web;
 using Microsoft.Extensions.Logging;
 
 
-namespace WebApi.Controllers
+namespace WebApi.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -43,23 +43,24 @@ namespace WebApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public Hotel Add([FromBody] Hotel hotel)
+        public ActionResult<Hotel> Add([FromBody] Hotel hotel)
         {
             return _hotelService.Add(hotel);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public Hotel Put(int id, [FromBody] Hotel hotel)
+        public ActionResult<Hotel> Put(int id, [FromBody] Hotel hotel)
         {
             return _hotelService.Update(id, hotel);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public Hotel Delete(int id)
+        public ActionResult<Hotel> Delete(int id)
         {
             return _hotelService.Delete(id);
         }
+
     }
 }

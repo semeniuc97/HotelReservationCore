@@ -52,14 +52,14 @@ namespace BusinessServiceXUnitTests
         [Fact]
         public void Test_AllBookedDates()
         {
-            var bookings = new List<Booking>()
+            var bookings = new List<BookingDetails>()
             {
-                new Booking()
+                new BookingDetails()
                 {
                     StartDate=new DateTime(2019,1,1),
                     EndDate=new DateTime(2019,1,3)
                 },
-                new Booking()
+                new BookingDetails()
                 {
                     StartDate=new DateTime(2019,1,5),
                     EndDate=new DateTime(2019,1,8)

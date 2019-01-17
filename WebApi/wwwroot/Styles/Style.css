@@ -1,0 +1,127 @@
+body{
+    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+}
+.pageMarking{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+header h1{
+    margin: 0 0 0.4375em 0;
+    color: #fff;
+    font-size: 342.85714%;
+    font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+.pageCaption{
+    padding: 21px 21px;
+    background-color: #444;
+}
+.navBar{
+    background-color:#222;
+}
+
+ul {
+    margin:0;
+    padding: 0.5em 1.5em;
+}
+
+ul a{
+    color:#aaa;
+    padding: 0.2em;
+    margin: 0.3em;
+
+}
+
+.active
+{
+    padding:0.2em;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0.2em;
+    color: #fff;
+}
+
+#searchForm
+{
+    float: right;
+}
+a:hover{
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 0.2em;
+    text-decoration: none;
+    outline: 0 none;
+    cursor: pointer;
+}
+.mainBlock{
+    padding: 1.5em 0 0 0;
+
+}
+.leftMainBlock{
+    padding: 0 0.75em 0 1.5em;
+    display: inline-block;
+    width: 64%;
+    vertical-align: top;
+/* float: left; */
+   
+}
+.rightMainBlock{
+    float: right;
+    width: 32%;
+/* float: right;     */
+}
+
+.mainContent{
+    background: #f4f4f4;
+    padding: 1.42857em;
+    border-radius: 0.3em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #888;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.box{
+    margin: 0 0 1.5em 0;
+    padding: 0 1.5em 0 0;
+    float: left;
+    vertical-align: top;
+    width: 46%;
+}
+
+footer{
+    margin: 0;
+    background: #eee;
+    padding: 1.5em;
+}
+p{
+    margin: 0%;
+}
+
+h2{
+    margin: 0px;
+}
+
+img{
+    display: inline;
+    margin: 0 1em 1.5em 0;
+    border: 2px white solid;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    clear: right;
+}
+button{
+    zoom: 1;
+    border: 1px solid #777;
+    border-radius: .2em;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.8) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    font: normal 1em/2em Arial, Helvetica;
+    margin: 0.75em 0.75em 0 0;
+    padding: 0 1.5em;
+    overflow: visible;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+
+}

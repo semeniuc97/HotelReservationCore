@@ -39,13 +39,25 @@ namespace BusinessAccessLayer.Services
             return booking;
         }
 
-        public List<Booking> GetAllByRoomId(int roomId)
+        public List<BookingDetails> GetAllByRoomId(int roomId)
         {
             return _hotelContext.Bookings
-                .Include(x => x.User)
                 .Include(x => x.Room)
+                .Include(x => x.User)
                 .Where(x => x.RoomId == roomId)
-                .ToList();
+                .Select(x => new BookingDetails
+                {
+                    Id = x.Id,
+                    UserName = x.User.UserName,
+                    Email = x.User.Email,
+                    EndDate = x.EndDate,
+                    StartDate = x.StartDate,
+                    Price = x.Room.Price
+                }).ToList();
+            //.Where(x => x.RoomId == roomId)
+            //.Include(x => x.Room)
+            //.Include(x => x.User)
+            //.ToList();
         }
 
         public List<Booking> GetRoomReservationsByDatesRange(DateTime StartDate, DateTime EndDate)
@@ -65,7 +77,5 @@ namespace BusinessAccessLayer.Services
 
             return roombookings;
         }
-
-
     }
 }

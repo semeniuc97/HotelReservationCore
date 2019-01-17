@@ -9,7 +9,7 @@ namespace BusinessAccessLayer.Services.Interfaces
     {
         Booking Delete(int id);
         Booking Add(Booking booking);
-        List<Booking> GetAllByRoomId(int roomId);
+        List<BookingDetails> GetAllByRoomId(int roomId);
         List<Booking> GetRoomReservationsByDatesRange(DateTime StartDate, DateTime EndDate);
         List<RoomBookings> GetRoomBookingsRating(List<Booking> bookings);
     }

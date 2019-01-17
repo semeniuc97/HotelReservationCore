@@ -8,5 +8,6 @@ namespace BusinessAccessLayer.Services.Interfaces
     public interface IUserService
     {
         List<User> GetAll();
+        string Authenticate(string username, string password);
     }
 }

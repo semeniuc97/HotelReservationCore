@@ -12,9 +12,10 @@ using NLog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApi.Controllers
+namespace WebApi.ApiControllers
 {
     [Route("api/[controller]/[action]")]
+    [ApiController]
     public class BookingsController : Controller
     {
         private IBookingService _bookingService;
@@ -43,9 +44,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{roomId}")]
-        public ActionResult<IEnumerable<Booking>> GetAllByRoomId(int roomId)
+        public ActionResult<IEnumerable<BookingDetails>> GetAllByRoomId(int roomId)
         {
             return _bookingService.GetAllByRoomId(roomId);
+           
         }
 
         [HttpGet("{startDate}/{endDate}")]
@@ -79,7 +81,7 @@ namespace WebApi.Controllers
                 _log.LogInfo($"{bookedDates.Count} new bookings have been added succesfully!");
                 return bookedDates;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Exception while fetching all the bookigns from the storage.");
             }

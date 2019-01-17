@@ -13,7 +13,7 @@ namespace BusinessAccessLayer.Services
 
         }
 
-        public virtual List<DateTime> GetAllBookedDays(List<Booking> bookings)
+        public virtual List<DateTime> GetAllBookedDays(List<BookingDetails> bookings)
         {
             var roomAllBookedDays = new List<DateTime>();
             foreach (var booking in bookings)

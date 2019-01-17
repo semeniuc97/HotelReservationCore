@@ -7,7 +7,7 @@ namespace BusinessAccessLayer.Services.Interfaces
 {
     public interface IBookedDatesService
     {
-        List<DateTime> GetAllBookedDays(List<Booking> bookings);
+        List<DateTime> GetAllBookedDays(List<BookingDetails> bookings);
         bool CheckIsBookedDates(DateTime StartDate, DateTime EndDate, List<DateTime> bookedDates);
         List<DateTime> GetBookingDatesRange(DateTime StartDate, DateTime EndDate);
     }
