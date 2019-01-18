@@ -12,7 +12,7 @@ using NLog.Web;
 using Microsoft.Extensions.Logging;
 
 
-namespace WebApi.ApiControllers
+namespace WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
