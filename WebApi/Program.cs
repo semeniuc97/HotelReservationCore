@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -20,12 +21,17 @@ namespace WebApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseKestrel()
                 .UseStartup<Startup>()
             .UseUrls("http://localhost:6406")
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
                 logging.SetMinimumLevel(LogLevel.Trace);
+            })
+            .ConfigureKestrel((context, options) =>
+            {
+                options.Listen(IPAddress.Loopback, 5000);
             })
             .UseNLog();
     }

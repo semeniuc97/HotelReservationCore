@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccessLayer.Services;
 using BusinessAccessLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
@@ -43,6 +44,7 @@ namespace WebApi.Controllers
             return _bookingService.Delete(id);
         }
 
+        [Authorize]
         [HttpGet("{roomId}")]
         public ActionResult<IEnumerable<BookingDetails>> GetAllByRoomId(int roomId)
         {

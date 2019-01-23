@@ -52,7 +52,7 @@ namespace BusinessAccessLayer.Services
 
         public List<Hotel> GetAll()
         {
-            return _hotelContext.Hotels.ToList();
+            return _hotelContext.Hotels.Include(x=>x.Rooms).AsNoTracking().ToList();
         }
     }
 }
