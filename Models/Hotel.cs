@@ -12,7 +12,7 @@ namespace Models
         public string Adress { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Room> Rooms { get; set; }
+        public ICollection<Room> Rooms { get; set; }
 
 
     }

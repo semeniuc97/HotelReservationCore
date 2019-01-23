@@ -10,7 +10,7 @@ using Models;
 using NLog;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -27,7 +27,7 @@ namespace WebApi.Controllers
             _logger = logger;
         }
 
-        // GET api/values
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Hotel>> Get()
         {

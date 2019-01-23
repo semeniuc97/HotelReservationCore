@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +12,10 @@ namespace Models
         public int Number { get; set; }
         public int Capability { get; set; }
         public int ComfortLevel { get; set; }
-
         public int HotelId { get; set; }
-        public virtual Hotel Hotel { get; set; }
+        [JsonIgnore]
+        public Hotel Hotel { get; set; }
 
-        public virtual ICollection<Booking> Bookings { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

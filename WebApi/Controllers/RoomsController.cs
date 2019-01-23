@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessAccessLayer.Services;
 using BusinessAccessLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -33,6 +34,7 @@ namespace WebApi.Controllers
             return _roomService.GetById(id);
         }
 
+        [Authorize]
         [HttpGet("{hotelId}")]
         public ActionResult<IEnumerable<Room>> GetByHotelId(int hotelid)
         {
